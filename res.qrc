@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/pos">
         <file>img/pos.jpg</file>
+        <file>img/pad.png</file>
+        <file>img/muro.jpeg</file>
     </qresource>
 </RCC>

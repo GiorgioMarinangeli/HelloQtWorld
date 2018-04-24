@@ -17,6 +17,10 @@ Widget::Widget(QWidget *parent) :
     m_itrator= 0;
     findAllChildren(this);
 
+    ui->padWidget->installEventFilter(this);
+    ui->muroWidget->installEventFilter(this);
+
+    connect(ui->labelCliccabile,SIGNAL(onClickEvent()),this,SLOT(clickOnMyLabelSlot()));
 }
 //----------------------------------------------------------------------------------------
 Widget::~Widget()
@@ -32,6 +36,7 @@ void Widget::findAllChildren(QWidget* pwidget){
     m_itrator++;
 
     foreach (QObject* obj, list) {
+
         if(obj->isWidgetType()){
 
             QString s = QString::null;
@@ -122,4 +127,93 @@ void Widget::on_disconnectSignalPushButton_clicked()
     disconnect(ui->dial,           SIGNAL(valueChanged(int)),ui->lcdNumber,        SLOT(display(int)));
     disconnect(ui->verticalSlider, SIGNAL(valueChanged(int)),ui->dial,             SLOT(setValue(int)));
     disconnect(ui->dial,           SIGNAL(valueChanged(int)),ui->verticalSlider,   SLOT(setValue(int)));
+}
+
+//----------------------------------------------------------------------------------------
+void Widget::slotPerTastiConIdx(){
+
+    QPushButton* p = (QPushButton*)sender();
+    QVariant v = p->property("idx");
+    if(v.isValid()){
+        QMessageBox msgBox;
+        msgBox.setText(QString("Premuto il tasto %1").arg(v.toInt()));
+        msgBox.exec();
+    }
+}
+//----------------------------------------------------------------------------------------
+void Widget::on_conectPage5PushButton_clicked()
+{
+    foreach(QObject *child,ui->page_5->children()) {
+
+        if(child->isWidgetType()){
+
+            QPushButton*p = (QPushButton*)child;
+
+            QVariant v = p->property("idx");
+
+            if ( v.isValid() ){
+                connect(p, SIGNAL(clicked()),this,SLOT(slotPerTastiConIdx()));
+            }
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------
+void Widget::timerEvent(QTimerEvent *event){
+    if(event->timerId() == m_timerId){
+        this->killTimer(m_timerId);
+        m_timerId = -1;
+        ui->msglabel->setText("");
+    }
+}
+//----------------------------------------------------------------------------------------
+void Widget::clearTimerStart(int &timerId){
+    if(timerId != -1){
+        this->killTimer(timerId);
+    }
+
+    timerId = this->startTimer(1000);
+}
+
+//----------------------------------------------------------------------------------------
+bool Widget::eventFilter(QObject *target, QEvent *event)
+{
+    if (target == ui->muroWidget ){
+
+        if ( event->type() == QEvent::KeyPress ) {
+            ui->msglabel->setText("Premuto Mouse su Muro");
+            clearTimerStart(m_timerId);
+            return(true);
+        }else
+        if ( event->type() == QEvent::MouseButtonRelease ) {
+            ui->msglabel->setText("Hai rilasciato il Mouse su Muro");
+            clearTimerStart(m_timerId);
+            return(true);
+        }
+
+    }else
+
+    if (target == ui->padWidget ){
+
+        if ( event->type() == QEvent::MouseButtonPress ) {
+            ui->msglabel->setText("Premuto Mouse su Pad");
+            clearTimerStart(m_timerId);
+            return(true);
+        }else
+        if ( event->type() == QEvent::MouseMove ) {
+            ui->msglabel->setText("Stai muovendo il mouse sopra Pad");
+            clearTimerStart(m_timerId);
+            return(true);
+        }
+    }
+
+    return QWidget::eventFilter(target, event);
+}
+
+//----------------------------------------------------------------------------------------
+void Widget::clickOnMyLabelSlot(){
+
+    QMessageBox msgBox;
+    msgBox.setText(QString("Hai cliccato sulla mia Label !!"));
+    msgBox.exec();
 }
