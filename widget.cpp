@@ -3,6 +3,9 @@
 #include <QDial>
 #include "widget.h"
 #include "ui_widget.h"
+
+//https://wiki.qt.io/Qt_for_Beginners
+
 //----------------------------------------------------------------------------------------
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
