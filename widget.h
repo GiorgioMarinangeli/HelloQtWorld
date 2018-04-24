@@ -26,6 +26,10 @@ private slots:
 
     void on_deletePushButton_clicked();
 
+    void on_connectSignalPushButton_clicked();
+
+    void on_disconnectSignalPushButton_clicked();
+
 private:
     Ui::mainWidget *ui;
 

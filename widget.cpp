@@ -95,11 +95,28 @@ void Widget::on_createPushButton_clicked()
     pSlider->show();
 
 }
-
+//----------------------------------------------------------------------------------------
 void Widget::on_deletePushButton_clicked()
 {
     if( m_Container != NULL){
         delete m_Container;
         m_Container = NULL;
     }
+}
+//----------------------------------------------------------------------------------------
+void Widget::on_connectSignalPushButton_clicked()
+{
+    connect(ui->verticalSlider, SIGNAL(valueChanged(int)),ui->lcdNumber,        SLOT(display(int)));
+    connect(ui->dial,           SIGNAL(valueChanged(int)),ui->lcdNumber,        SLOT(display(int)));
+    connect(ui->verticalSlider, SIGNAL(valueChanged(int)),ui->dial,             SLOT(setValue(int)));
+    connect(ui->dial,           SIGNAL(valueChanged(int)),ui->verticalSlider,   SLOT(setValue(int)));
+
+}
+//----------------------------------------------------------------------------------------
+void Widget::on_disconnectSignalPushButton_clicked()
+{
+    disconnect(ui->verticalSlider, SIGNAL(valueChanged(int)),ui->lcdNumber,        SLOT(display(int)));
+    disconnect(ui->dial,           SIGNAL(valueChanged(int)),ui->lcdNumber,        SLOT(display(int)));
+    disconnect(ui->verticalSlider, SIGNAL(valueChanged(int)),ui->dial,             SLOT(setValue(int)));
+    disconnect(ui->dial,           SIGNAL(valueChanged(int)),ui->verticalSlider,   SLOT(setValue(int)));
 }
