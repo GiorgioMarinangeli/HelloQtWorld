@@ -18,8 +18,21 @@ public:
 private slots:
     void on_pressMePushButton_clicked();
 
+    void on_setLeftPushButton_clicked();
+
+    void on_setRightPushButton_clicked();
+
+    void on_createPushButton_clicked();
+
+    void on_deletePushButton_clicked();
+
 private:
     Ui::mainWidget *ui;
+
+    void findAllChildren(QWidget* pwidget);
+    int m_itrator;
+
+    QWidget* m_Container;
 };
 
 #endif // WIDGET_H

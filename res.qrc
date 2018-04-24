@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/pos">
+        <file>img/pos.jpg</file>
+    </qresource>
+</RCC>
