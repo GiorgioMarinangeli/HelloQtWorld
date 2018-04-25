@@ -39,6 +39,8 @@ private slots:
 
     void on_conectPage5PushButton_clicked();
 
+    void on_quitPushButton_clicked();
+
 private:
     Ui::mainWidget *ui;
 
@@ -49,6 +51,11 @@ private:
     void clearTimerStart(int &timerId);
 
     QWidget* m_Container;
+
+    int m_nStartUp;
+    void ReadSettings();
+    void WriteSettings();
+
 
 };
 

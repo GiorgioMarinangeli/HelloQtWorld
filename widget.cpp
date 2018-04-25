@@ -14,18 +14,56 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    qDebug() << "Find all children";
     m_itrator= 0;
     findAllChildren(this);
 
+    qDebug() << "Install Event Filter";
     ui->padWidget->installEventFilter(this);
     ui->muroWidget->installEventFilter(this);
 
+    qDebug() << "Connect Cliccable";
     connect(ui->labelCliccabile,SIGNAL(onClickEvent()),this,SLOT(clickOnMyLabelSlot()));
+
+    ReadSettings();
+    WriteSettings();
 }
 //----------------------------------------------------------------------------------------
 Widget::~Widget()
 {
     delete ui;
+}
+
+//--------------------------------------------------------------------------------------------------
+void Widget::ReadSettings(){
+
+    //QString str = "/usr/local/etc/radiolab.conf";
+    //QSettings settings(str,QSettings::IniFormat);
+
+    QSettings settings;
+
+    QVariant v = settings.value("N_START_UP");
+    if( v.isValid() ){
+        m_nStartUp = v.toInt();
+        m_nStartUp++;
+        ui->settingsLabel->setText(QString("Ciao, questa è la %1° volta che avvi questa demo !!").arg(m_nStartUp));
+    }else{
+        ui->settingsLabel->setText(" ");
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+void Widget::WriteSettings(){
+
+    //QString str = gStartDir.left(gStartDir.lastIndexOf(QDir::separator())) + QDir::separator() + "config.ini";
+    //QString str = "/usr/local/etc/radiolab.conf";
+    //QSettings settings(str,QSettings::IniFormat);
+
+    QSettings settings;
+
+    settings.clear();
+
+    settings.setValue("N_START_UP",  m_nStartUp);
 }
 
 //----------------------------------------------------------------------------------------
@@ -216,4 +254,9 @@ void Widget::clickOnMyLabelSlot(){
     QMessageBox msgBox;
     msgBox.setText(QString("Hai cliccato sulla mia Label !!"));
     msgBox.exec();
+}
+//----------------------------------------------------------------------------------------
+void Widget::on_quitPushButton_clicked()
+{
+    this->close();
 }
