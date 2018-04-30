@@ -29,11 +29,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         widget.cpp \
     mylabel.cpp \
-    cgraphtable.cpp
+    cgraphtable.cpp \
+    mygauge.cpp
 
 HEADERS  += widget.h \
     mylabel.h \
-    cgraphtable.h
+    cgraphtable.h \
+    mygauge.h
 
 FORMS    += widget.ui
 

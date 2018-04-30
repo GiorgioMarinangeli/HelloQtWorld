@@ -447,6 +447,99 @@ color: rgb(0, 0, 255);</string>
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="page_9">
+      <widget class="myGauge" name="gaugeWidget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>90</y>
+         <width>301</width>
+         <height>241</height>
+        </rect>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::StrongFocus</enum>
+       </property>
+      </widget>
+      <widget class="QSlider" name="verticalSlider_2">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>80</y>
+         <width>20</width>
+         <height>261</height>
+        </rect>
+       </property>
+       <property name="maximum">
+        <number>270</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="valueLabel">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>360</y>
+         <width>67</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(252, 233, 79);</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>721</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>MyGauge</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="page_10">
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>30</y>
+         <width>741</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Timer</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </item>
    <item>
@@ -495,9 +588,51 @@ color: rgb(0, 0, 255);</string>
    <header>cgraphtable.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>myGauge</class>
+   <extends>QWidget</extends>
+   <header>mygauge.h</header>
+   <container>1</container>
+   <slots>
+    <slot>setValue(int)</slot>
+   </slots>
+  </customwidget>
  </customwidgets>
  <resources>
   <include location="res.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>verticalSlider_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>gaugeWidget</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>112</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>241</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>verticalSlider_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>valueLabel</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>115</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>134</x>
+     <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
