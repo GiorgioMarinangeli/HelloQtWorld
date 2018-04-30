@@ -23,6 +23,8 @@ private slots:
     void slotPerTastiConIdx();
     void clickOnMyLabelSlot();
 
+    void timerSlot();
+
     void on_pressMePushButton_clicked();
 
     void on_setLeftPushButton_clicked();
@@ -41,6 +43,8 @@ private slots:
 
     void on_quitPushButton_clicked();
 
+    void on_startTimerCheckBox_clicked(bool checked);
+
 private:
     Ui::mainWidget *ui;
 
@@ -56,7 +60,8 @@ private:
     void ReadSettings();
     void WriteSettings();
 
-
+    int ccTimer;
+    QTimer* pMyTimer;
 };
 
 #endif // WIDGET_H

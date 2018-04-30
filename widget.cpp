@@ -27,6 +27,10 @@ Widget::Widget(QWidget *parent) :
 
     ReadSettings();
     WriteSettings();
+
+
+    pMyTimer = new QTimer(this);
+    connect(pMyTimer,SIGNAL(timeout()),this,SLOT(timerSlot()));
 }
 //----------------------------------------------------------------------------------------
 Widget::~Widget()
@@ -259,4 +263,25 @@ void Widget::clickOnMyLabelSlot(){
 void Widget::on_quitPushButton_clicked()
 {
     this->close();
+}
+
+
+//----------------------------------------------------------------------------------------
+void Widget::on_startTimerCheckBox_clicked(bool checked)
+{
+    if(checked){
+
+        pMyTimer->stop();
+        ccTimer = 0;
+        pMyTimer->start(1000);
+
+    }else
+        pMyTimer->stop();
+}
+//----------------------------------------------------------------------------------------
+void Widget::timerSlot(){
+
+    ccTimer++;
+    ui->timerLcdNumber->display(ccTimer);
+
 }
