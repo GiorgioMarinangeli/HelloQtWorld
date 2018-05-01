@@ -206,7 +206,12 @@ void Widget::timerEvent(QTimerEvent *event){
         this->killTimer(m_timerId);
         m_timerId = -1;
         ui->msglabel->setText("");
+    }else
+
+    if(event->timerId() == m_timerId1){
+        timerSlot();
     }
+
 }
 //----------------------------------------------------------------------------------------
 void Widget::clearTimerStart(int &timerId){
@@ -271,6 +276,8 @@ void Widget::on_startTimerCheckBox_clicked(bool checked)
 {
     if(checked){
 
+        ui->startEventTimerCheckBox->setCheckState(Qt::Unchecked);
+
         pMyTimer->stop();
         ccTimer = 0;
         pMyTimer->start(1000);
@@ -283,5 +290,25 @@ void Widget::timerSlot(){
 
     ccTimer++;
     ui->timerLcdNumber->display(ccTimer);
+
+}
+
+void Widget::on_startEventTimerCheckBox_clicked(bool checked)
+{
+    if(checked){
+        ui->startTimerCheckBox->setCheckState(Qt::Unchecked);
+
+        if( m_timerId1 != -1 ) {
+            this->killTimer(m_timerId1);
+        }
+
+        m_timerId1 = this->startTimer(1000);
+
+    }else{
+        if(m_timerId1 != -1){
+            this->killTimer(m_timerId1);
+            m_timerId1 = -1;
+        }
+    }
 
 }

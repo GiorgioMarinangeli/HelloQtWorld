@@ -43,7 +43,9 @@ private slots:
 
     void on_quitPushButton_clicked();
 
-    void on_startTimerCheckBox_clicked(bool checked);
+    void on_startTimerCheckBox_clicked(bool checked);    
+
+    void on_startEventTimerCheckBox_clicked(bool checked);
 
 private:
     Ui::mainWidget *ui;
@@ -53,6 +55,8 @@ private:
 
     int  m_timerId;
     void clearTimerStart(int &timerId);
+
+    int  m_timerId1;
 
     QWidget* m_Container;
 
